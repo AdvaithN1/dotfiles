@@ -1,0 +1,33 @@
+# font
+font-family = "JetBrainsMono Nerd Font Mono"
+font-size = 14
+font-thicken = false
+adjust-cell-height = -2
+
+# appearance - cyberdream theme with gruvbox-dark-hard background
+theme = cyberdream
+background = #1d2021
+
+# color rendering
+alpha-blending = linear-corrected
+window-colorspace = display-p3
+
+macos-titlebar-style = hidden
+# Note: GTK titlebar behavior can vary across desktops/versions.
+gtk-titlebar = false
+window-decoration = true
+window-padding-x = 8
+window-padding-y = 8
+window-padding-balance = true
+
+# behavior
+mouse-hide-while-typing = true
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = clipboard
+scrollback-limit = 10000000
+gtk-single-instance = false
+window-vsync = true
+macos-option-as-alt = right
+
+keybind = shift+enter=text:\x1b\r
