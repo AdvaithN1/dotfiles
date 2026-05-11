@@ -1,6 +1,6 @@
 .PHONY: install adopt uninstall restow brew apt
 
-PACKAGES := ghostty nvim shell starship tmux
+PACKAGES := ghostty nvim shell starship
 STOW ?= stow
 STOW_TARGET ?= $(HOME)
 
