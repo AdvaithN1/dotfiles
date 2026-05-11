@@ -69,7 +69,7 @@ behind = "⇣${count}"
 style = "red"
 
 [python]
-disabled = true 
+disabled = true
 
 [hostname]
 ssh_only = true

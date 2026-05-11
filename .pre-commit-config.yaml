@@ -11,10 +11,14 @@ repos:
       # Safety
       - id: check-added-large-files
       # Hygiene
-  - id: trailing-whitespace
-    args: [--markdown-linebreak-ext=md]
-  - id: end-of-file-fixer
-  - id: check-merge-conflict
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
 
   # Formatting
   - repo: https://github.com/JohnnyMorganz/StyLua
