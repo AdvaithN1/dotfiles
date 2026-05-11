@@ -17,7 +17,7 @@ make install
 make adopt
 
 # or manually:
-stow -t ~ --adopt editor emacs ghostty lint nvim ruff shell starship tmux
-stow -t ~ --restow editor emacs ghostty lint nvim ruff shell starship tmux
+stow -t ~ --adopt ghostty nvim shell starship
+stow -t ~ --restow ghostty nvim shell starship
 git status  # review and commit the adopted files
 ```
