@@ -23,7 +23,7 @@ brew:
 		pre-commit stylua shfmt shellcheck gitleaks clang-format prettier
 
 apt:
-	sudo apt update && sudo apt install -y stow neovim tmux zsh ripgrep btop ccache fzf starship \
+	sudo apt update && sudo apt install -y zsh-autosuggestions stow neovim tmux zsh ripgrep btop ccache fzf \
 		pre-commit shfmt shellcheck clang-format
 	npm install -g prettier
 	# csharpier (optional, for C# format-on-save): `dotnet tool install -g csharpier`
