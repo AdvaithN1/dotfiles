@@ -19,7 +19,7 @@ restow:
 	$(STOW) -t $(STOW_TARGET) --restow $(PACKAGES)
 
 brew:
-	brew install stow neovim tmux ripgrep btop node ccache fzf starship \
+	brew zsh-autocomplete install stow neovim tmux ripgrep btop node ccache fzf starship \
 		pre-commit stylua shfmt shellcheck gitleaks clang-format prettier
 
 apt:
