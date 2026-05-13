@@ -42,5 +42,67 @@ map("i", "<C-u>", "<C-o><C-u>", { noremap = true, silent = true })
 -- Yanking
 vim.keymap.set("n", "<leader>ya", ":%y<CR>", { desc = "Yank all" })
 
+-- Snacks picker stuff
+-- files
+local function snacks_find_directories()
+  Snacks.picker({
+    title = "Search Directories",
+    finder = "proc", -- Use the process finder to run arbitrary commands
+    cmd = "fd",
+    args = { "--type", "d", "--strip-cwd-prefix" },
+    format = "file", -- Formats the output with file/directory icons
+    transform = function(item)
+      -- Map the output string (item.text) to a file path
+      item.file = item.text
+      item.dir = true
+    end,
+    -- Define what happens when you press Enter
+    confirm = function(picker, item)
+      picker:close()
+      if item then
+        -- Open the selected directory in Oil
+        require("oil").open(item.file)
+      end
+    end,
+  })
+end
+
+vim.keymap.set("n", "<leader>fp", function()
+  Snacks.picker.files()
+end, { desc = "Find Files" })
+vim.keymap.set("n", "<leader>fb", function()
+  Snacks.picker.buffers()
+end, { desc = "Find Buffers" })
+vim.keymap.set("n", "<leader>fd", snacks_find_directories, { desc = "Find Directories (Oil)" })
+vim.keymap.set("n", "<leader>fg", function()
+  Snacks.picker.grep()
+end, { desc = "Live Grep" })
+vim.keymap.set("n", "<leader>fo", function()
+  Snacks.picker.recent()
+end, { desc = "Find Old/Recent Files" })
+
+-- Git
+vim.keymap.set("n", "<leader>gb", function()
+  Snacks.picker.git_branches()
+end, { desc = "Git Branches" })
+vim.keymap.set("n", "<leader>gl", function()
+  Snacks.picker.git_log()
+end, { desc = "Git Log" })
+vim.keymap.set("n", "<leader>gL", function()
+  Snacks.picker.git_log_line()
+end, { desc = "Git Log Line" })
+vim.keymap.set("n", "<leader>gs", function()
+  Snacks.picker.git_status()
+end, { desc = "Git Status" })
+vim.keymap.set("n", "<leader>gS", function()
+  Snacks.picker.git_stash()
+end, { desc = "Git Stash" })
+vim.keymap.set("n", "<leader>gd", function()
+  Snacks.picker.git_diff()
+end, { desc = "Git Diff (Hunks)" })
+vim.keymap.set("n", "<leader>gf", function()
+  Snacks.picker.git_log_file()
+end, { desc = "Git Log File" })
+
 -- LSP Stuff
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})

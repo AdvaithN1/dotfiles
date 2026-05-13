@@ -15,16 +15,23 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
-      -- ✨ Requested Features:
       bigfile = { enabled = true },
       image = { enabled = true },
       notifier = { enabled = true },
       indent = { enabled = true },
-      quickfile = { enabled = true }, -- Faster rendering when opening files from terminal
-      words = { enabled = true }, -- Automatically highlights references to word under cursor
+      quickfile = { enabled = true },
+      words = { enabled = true },
       scroll = { enabled = true },
+      picker = {
+        win = {
+          input = {
+            keys = {
+              ["jk"] = { "close", mode = { "i", "n" } },
+            },
+          },
+        },
+      },
 
-      picker = { enabled = false },
       explorer = { enabled = false },
       terminal = { enabled = false },
     },
@@ -67,50 +74,6 @@ return {
         },
       })
       vim.keymap.set("n", "<leader>0", require("oil").toggle_float)
-    end,
-  },
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
-    config = function()
-      local builtin = require("telescope.builtin")
-      require("telescope").setup({
-        defaults = { mappings = { i = { ["jk"] = require("telescope.actions").close } } },
-        extensions = {
-          file_browser = {
-            hijack_netrw = true,
-          },
-        },
-      })
-
-      -- Finds directories with telescope, and then enters Oil
-      local function telescope_find_directories()
-        local actions = require("telescope.actions")
-        local action_state = require("telescope.actions.state")
-        local builtin = require("telescope.builtin")
-
-        builtin.find_files({
-          prompt_title = "Search Directories",
-          -- Use 'fd' to list only directories
-          find_command = { "fd", "--type", "d", "--strip-cwd-prefix" },
-          attach_mappings = function(prompt_bufnr, map)
-            -- Define what happens when you press Enter
-            actions.select_default:replace(function()
-              actions.close(prompt_bufnr)
-              local selection = action_state.get_selected_entry()
-              -- Open the selected directory in Oil
-              require("oil").open(selection.path)
-            end)
-            return true
-          end,
-        })
-      end
-
-      vim.keymap.set("n", "<leader>fp", builtin.find_files)
-      vim.keymap.set("n", "<leader>fb", builtin.buffers)
-      vim.keymap.set("n", "<leader>fd", telescope_find_directories, { desc = "Find Directories (Oil)" })
-      vim.keymap.set("n", "<leader>fg", builtin.live_grep)
-      vim.keymap.set("n", "<leader>fo", builtin.oldfiles)
     end,
   },
   { "windwp/nvim-autopairs", event = "InsertEnter", config = true },
