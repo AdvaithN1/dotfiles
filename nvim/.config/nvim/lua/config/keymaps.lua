@@ -26,6 +26,8 @@ vim.keymap.set("v", "p", "p=`]", { desc = "Paste and re-indent block" })
 -- Comments
 map("n", "<C-/>", "gcc", { remap = true, desc = "Toggle comment" })
 map("v", "<C-/>", "gc", { remap = true, desc = "Toggle comment" })
+map("n", "<C-_>", "gcc", { remap = true, desc = "Toggle comment" })
+map("v", "<C-_>", "gc", { remap = true, desc = "Toggle comment" })
 
 -- Terminal Navigation
 map("t", "<C-h>", [[<C-\><C-n><C-w>h]])
