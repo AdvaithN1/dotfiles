@@ -25,6 +25,12 @@ require("lazy").setup({
   },
 })
 
+vim.api.nvim_create_autocmd({ "VimEnter", "VimResume" }, {
+  callback = function()
+    vim.fn.chansend(vim.v.stderr, "\27[>4m") -- disable xterm modifyOtherKeys
+  end,
+})
+
 -- Load keymaps and autocmds after plugins
 require("config.keymaps")
 require("config.autocmds")
