@@ -16,7 +16,17 @@ return {
     ---@type snacks.Config
     opts = {
       bigfile = { enabled = true },
-      image = { enabled = true },
+      image = {
+        enabled = true,
+        doc = {
+          enabled = true,
+          inline = true,
+          float = true,
+
+          max_width = 999,
+          max_height = 999,
+        },
+      },
       notifier = { enabled = true },
       indent = { enabled = true },
       quickfile = { enabled = true },
@@ -50,6 +60,14 @@ return {
           Snacks.notifier.hide()
         end,
         desc = "Dismiss All Notifications",
+      },
+      {
+        "<leader>ir",
+        function()
+          Snacks.image.image.clear()
+          vim.cmd("edit!")
+        end,
+        desc = "Reload image",
       },
     },
   },

@@ -18,6 +18,17 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
   pattern = { "*" },
 })
 
+-- For automatic image updates
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+  pattern = { "*.png", "*.jpg", "*.jpeg", "*.webp" },
+  callback = function()
+    pcall(function()
+      Snacks.image.image.clear()
+      vim.cmd("silent! edit!")
+    end)
+  end,
+})
+
 local opt = vim.opt
 
 opt.number = true
