@@ -24,7 +24,8 @@ brew:
 
 apt:
 	sudo apt update && sudo apt install -y zsh-autosuggestions stow tmux zsh ripgrep btop ccache fzf \
-		pre-commit shfmt shellcheck clang-format
+		pre-commit shfmt shellcheck clang-format fonts-firacode -y
 	sudo apt install nodejs npm -y
 	sudo npm install -g prettier
+	curl -sS https://starship.rs/install.sh | sh
 	# csharpier (optional, for C# format-on-save): `dotnet tool install -g csharpier`
