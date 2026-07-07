@@ -28,7 +28,7 @@ apt: NVIM_URL := https://github.com/neovim/neovim/releases/latest/download/nvim-
 apt: NVIM_DIR := /opt/nvim-linux-$(NVIM_ARCH)
 apt:
 	sudo apt update && sudo apt install -y zsh-autosuggestions stow tmux zsh ripgrep btop ccache fzf \
-		pre-commit shfmt shellcheck clang-format fonts-firacode python3 python3-venv unzip -y
+		pre-commit shfmt shellcheck clang-format fonts-firacode python3 python3-venv unzip zsh-syntax-highlighting -y
 	sudo apt install nodejs npm -y
 	sudo npm install -g prettier
 	curl -sS https://starship.rs/install.sh | sh
