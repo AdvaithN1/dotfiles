@@ -48,5 +48,9 @@ if [ -f "$HOME/.zsh_secrets" ]; then
     source "$HOME/.zsh_secrets"
 fi
 
+if [[ "$TERM" == "xterm-ghostty" ]]; then
+  export TERM=xterm-256color
+fi
+
 # starship
 eval "$(starship init zsh)"
