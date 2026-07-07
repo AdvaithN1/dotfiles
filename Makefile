@@ -22,6 +22,10 @@ brew:
 	brew zsh-autocomplete install stow neovim tmux ripgrep btop node ccache fzf starship \
 		pre-commit stylua shfmt shellcheck gitleaks clang-format prettier
 
+# Neovim variable definitions
+apt: NVIM_ARCH := $(shell uname -m | sed 's/aarch64/arm64/')
+apt: NVIM_URL := https://github.com/neovim/neovim/releases/latest/download/nvim-linux-$(NVIM_ARCH).tar.gz
+apt: NVIM_DIR := /opt/nvim-linux-$(NVIM_ARCH)
 apt:
 	sudo apt update && sudo apt install -y zsh-autosuggestions stow tmux zsh ripgrep btop ccache fzf \
 		pre-commit shfmt shellcheck clang-format fonts-firacode -y
@@ -29,8 +33,10 @@ apt:
 	sudo npm install -g prettier
 	curl -sS https://starship.rs/install.sh | sh
 
-	# Neovim installation	
-	sudo add-apt-repository ppa:neovim-ppa/stable
-	sudo apt install neovim
+	# Latest Neovim from official release tarball
+	curl -fL -o /tmp/nvim-linux-$(NVIM_ARCH).tar.gz $(NVIM_URL)
+	sudo rm -rf $(NVIM_DIR)
+	sudo tar -C /opt -xzf /tmp/nvim-linux-$(NVIM_ARCH).tar.gz
+	sudo ln -sf $(NVIM_DIR)/bin/nvim /usr/local/bin/nvim
 
 	# csharpier (optional, for C# format-on-save): `dotnet tool install -g csharpier`
