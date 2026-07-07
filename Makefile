@@ -39,4 +39,5 @@ apt:
 	sudo tar -C /opt -xzf /tmp/nvim-linux-$(NVIM_ARCH).tar.gz
 	sudo ln -sf $(NVIM_DIR)/bin/nvim /usr/local/bin/nvim
 
-	# csharpier (optional, for C# format-on-save): `dotnet tool install -g csharpier`
+	# Switch to zsh
+	sudo chsh -s $(which zsh) $USER
