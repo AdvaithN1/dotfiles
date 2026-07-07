@@ -1,6 +1,6 @@
 .PHONY: install adopt uninstall restow brew apt
 
-PACKAGES := ghostty nvim starship
+PACKAGES := ghostty nvim starship shell
 STOW ?= stow
 STOW_TARGET ?= $(HOME)
 
