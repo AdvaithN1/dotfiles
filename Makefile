@@ -28,4 +28,9 @@ apt:
 	sudo apt install nodejs npm -y
 	sudo npm install -g prettier
 	curl -sS https://starship.rs/install.sh | sh
+
+	# Neovim installation	
+	sudo add-apt-repository ppa:neovim-ppa/stable
+	sudo apt install neovim
+
 	# csharpier (optional, for C# format-on-save): `dotnet tool install -g csharpier`
