@@ -39,5 +39,7 @@ apt:
 	sudo tar -C /opt -xzf /tmp/nvim-linux-$(NVIM_ARCH).tar.gz
 	sudo ln -sf $(NVIM_DIR)/bin/nvim /usr/local/bin/nvim
 
+	curl -LsSf https://astral.sh/uv/install.sh | sh
+
 	# Switch to zsh
 	sudo chsh -s $(which zsh) $USER
