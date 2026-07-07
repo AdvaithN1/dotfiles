@@ -6,7 +6,7 @@ export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:/Users/advan/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
 
 
-# . "$HOME/.local/bin/env"
+. "$HOME/.local/bin/env"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/advan/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/advan/Downloads/google-cloud-sdk/path.zsh.inc'; fi
