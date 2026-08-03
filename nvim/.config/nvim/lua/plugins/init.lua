@@ -86,6 +86,7 @@ return {
       oil.setup({
         keymaps = {
           ["<C-h>"] = false,
+          ["<C-l>"] = false,
         },
         float = {
           border = "rounded",
