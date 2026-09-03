@@ -87,6 +87,40 @@ return {
         keymaps = {
           ["<C-h>"] = false,
           ["<C-l>"] = false,
+          ["<leader>dl"] = {
+            desc = "Copy IP-based scp command to Mac clipboard",
+            callback = function()
+              local entry = oil.get_cursor_entry()
+              if not entry then
+                vim.notify("No file or directory selected", vim.log.levels.WARN)
+                return
+              end
+
+              -- Get full absolute path
+              local dir = oil.get_current_dir()
+              local filepath = dir .. entry.name
+
+              -- Extract the exact Server IP your Mac connected to
+              local ssh_conn = vim.env.SSH_CONNECTION or ""
+              local server_ip = ssh_conn:match("%S+%s+%S+%s+(%S+)")
+
+              -- Fallback to host's primary IP if $SSH_CONNECTION is not present
+              if not server_ip or server_ip == "" then
+                server_ip = vim.fn.system("hostname -I"):match("(%S+)") or "127.0.0.1"
+              end
+
+              local remote_user = vim.env.USER or "quads"
+              local is_dir = entry.type == "directory"
+              local r_flag = is_dir and "-r " or ""
+
+              local remote_source = string.format("%s@%s:%s", remote_user, server_ip, vim.fn.shellescape(filepath))
+              local scp_cmd = string.format("scp %s%s ~/Downloads/", r_flag, remote_source)
+
+              -- Copy to '+' register (OSC 52 clipboard sync to Mac)
+              vim.fn.setreg("+", scp_cmd)
+              vim.notify("✓ Copied to clipboard:\n" .. scp_cmd, vim.log.levels.INFO)
+            end,
+          },
         },
         float = {
           border = "rounded",
