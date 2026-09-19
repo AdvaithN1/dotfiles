@@ -14,9 +14,8 @@ if [ -f '/Users/advan/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/advan/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/advan/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
-alias ssha='ssh advaithn@linux.andrew.cmu.edu'
-
 kinit -R advaithn@ANDREW.CMU.EDU &>/dev/null &|
+kinit advaithn@ANDREW.CMU.EDU
 
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -39,11 +38,6 @@ elif [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; th
   source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
-# using jetstream2 api
-export openai_api_base="https://llm.jetstream-cloud.org/api"
-export AIDER_CHAT_MODE="ask"
-export AIDER_MODEL="openai/gpt-oss-120b"
-# use aider --model openai/gpt-oss-120b --no-gitignore
 if [ -f "$HOME/.zsh_secrets" ]; then
     source "$HOME/.zsh_secrets"
 fi
@@ -54,3 +48,13 @@ fi
 
 # starship
 eval "$(starship init zsh)"
+
+alias vmsync="rsync -avz --progress --exclude='*.pth' --exclude='.git/' --exclude='.venv/' --exclude='*.pkl' advaith-gpu-vm.us-central1-c.workstations-474318:~/shape-grammar-experiments/ ~/Documents/shape-grammar-experiments/"
+alias vmsync2="rsync -avz --progress --exclude='*.pth' --exclude='.git/' --exclude='.venv/' --exclude='*.pkl' advaith-cpu-vm-2.us-central1-b.workstations-474318:~/shape-grammar-experiments/ ~/Documents/shape-grammar-experiments/"
+# alias vmsync2="rsync -avz --progress --exclude='*.pth' --exclude='.git/' --exclude='.venv/' advaith-cpu-vm-2.us-central1-b.workstations-474318:~/shape-grammar-experiments/ ~/Documents/shape-grammar-experiments/"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt INC_APPEND_HISTORY
