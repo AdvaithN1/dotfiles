@@ -58,3 +58,23 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 setopt INC_APPEND_HISTORY
+
+export STM32CubeMX_PATH=/Applications/STMicroelectronics/STM32CubeMX.app/Contents/Resources
+
+alias makestm="cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=cmake/gcc-arm-none-eabi.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON && cmake --build build"
+alias ocd="openocd \
+  -f interface/stlink-dap.cfg \
+  -c 'transport select dapdirect_swd' \
+  -f target/stm32h7x.cfg \
+  -c 'init' \
+  -c 'stm32h7x.swo configure -protocol uart -traceclk 64000000 -pin-freq 2000000 -output /dev/stdout' \
+  -c 'stm32h7x.swo enable' \
+  -c 'itm ports on'"
+alias flashstm="makestm && arm-none-eabi-gdb --batch build/QuadsSTMFirmware.elf \
+  -ex 'target extended-remote :3333' \
+  -ex 'load' \
+  -ex 'monitor reset run' \
+  -ex 'quit'"
+alias debugstm="arm-none-eabi-gdb build/QuadsSTMFirmware.elf \
+  -ex 'target extended-remote :3333' \
+  -ex 'monitor reset halt'"

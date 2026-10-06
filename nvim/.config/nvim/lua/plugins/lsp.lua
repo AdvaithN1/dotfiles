@@ -16,7 +16,7 @@ return {
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       -- Neovim 0.11+ Setup
-      for _, server in ipairs({ "pyright", "clangd" }) do
+      for _, server in ipairs({ "pyright", "ruff" }) do
         vim.lsp.config(server, { capabilities = capabilities })
         vim.lsp.enable(server)
       end
@@ -33,6 +33,24 @@ return {
           end, opts)
         end,
       })
+
+      local clangd_capabilities = vim.tbl_deep_extend("force", capabilities, {
+        offsetEncoding = { "utf-16" }, -- Fixes encoding mismatch warnings with nvim-cmp
+      })
+      vim.lsp.config("clangd", {
+        capabilities = clangd_capabilities,
+        cmd = {
+          "clangd",
+          "--background-index",
+          "--clang-tidy",
+          "--header-insertion=iwyu",
+          "--completion-style=detailed",
+          "--function-arg-placeholders",
+          -- CRITICAL FOR STM32: Allows clangd to query arm-none-eabi-gcc for standard headers
+          "--query-driver=/**/*arm-none-eabi*",
+        },
+      })
+      vim.lsp.enable("clangd")
     end,
   },
 

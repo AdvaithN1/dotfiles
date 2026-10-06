@@ -108,3 +108,4 @@ end, { desc = "Git Log File" })
 
 -- LSP Stuff
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show line diagnostics" })
