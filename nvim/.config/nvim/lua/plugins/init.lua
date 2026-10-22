@@ -146,16 +146,6 @@ return {
     end,
   },
   {
-    "rmagatti/auto-session",
-    lazy = false,
-    opts = {
-      suppressed_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-      auto_save = true,
-      auto_restore = true,
-      auto_create = true,
-    },
-  },
-  {
     "max397574/better-escape.nvim",
     config = function()
       require("better_escape").setup({
