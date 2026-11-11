@@ -61,15 +61,28 @@ setopt INC_APPEND_HISTORY
 
 export STM32CubeMX_PATH=/Applications/STMicroelectronics/STM32CubeMX.app/Contents/Resources
 
+# alias makestm="cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=cmake/gcc-arm-none-eabi.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON && cmake --build build"
+
+# alias ocd="openocd \
+#   -f interface/stlink-dap.cfg \
+#   -c 'transport select dapdirect_swd' \
+#   -f target/stm32h7x.cfg \
+#   -c 'init' \
+#   -c 'stm32h7x.swo configure -protocol uart -traceclk 275000000 -pin-freq 2500000 -output /dev/stdout' \
+#   -c 'stm32h7x.swo enable' \
+#   -c 'itm ports on' \
+#   | python3 -u -c 'import sys; r=sys.stdin.buffer.read; w=sys.stdout.buffer.write; f=sys.stdout.flush; (lambda: [w(r(1)) or f() for h in iter(lambda: r(1), b\"\") if h == b\"\x01\"])()'"
+# alias flashstm="makestm && arm-none-eabi-gdb --batch build/QuadsSTMFirmware.elf \
+#   -ex 'target extended-remote :3333' \
+#   -ex 'load' \
+#   -ex 'monitor reset run' \
+#   -ex 'quit'"
+# alias debugstm="arm-none-eabi-gdb build/QuadsSTMFirmware.elf \
+#   -ex 'target extended-remote :3333' \
+#   -ex 'monitor reset halt'"
+
 alias makestm="cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=cmake/gcc-arm-none-eabi.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON && cmake --build build"
-alias ocd="openocd \
-  -f interface/stlink-dap.cfg \
-  -c 'transport select dapdirect_swd' \
-  -f target/stm32h7x.cfg \
-  -c 'init' \
-  -c 'stm32h7x.swo configure -protocol uart -traceclk 64000000 -pin-freq 2000000 -output /dev/stdout' \
-  -c 'stm32h7x.swo enable' \
-  -c 'itm ports on'"
+alias ocd="openocd -f scripts/openocd.cfg"
 alias flashstm="makestm && arm-none-eabi-gdb --batch build/QuadsSTMFirmware.elf \
   -ex 'target extended-remote :3333' \
   -ex 'load' \
@@ -78,3 +91,4 @@ alias flashstm="makestm && arm-none-eabi-gdb --batch build/QuadsSTMFirmware.elf 
 alias debugstm="arm-none-eabi-gdb build/QuadsSTMFirmware.elf \
   -ex 'target extended-remote :3333' \
   -ex 'monitor reset halt'"
+alias logstm="python3 scripts/rtt_terminal.py"

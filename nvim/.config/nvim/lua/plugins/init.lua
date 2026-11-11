@@ -211,4 +211,39 @@ return {
       })
     end,
   },
+  {
+    "sindrets/diffview.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      { "nvim-tree/nvim-web-devicons", lazy = true }, -- Optional, for file icons
+    },
+    cmd = {
+      "DiffviewOpen",
+      "DiffviewClose",
+      "DiffviewToggleFiles",
+      "DiffviewFocusFiles",
+      "DiffviewFileHistory",
+    },
+    keys = {
+      { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File History (Current File)" },
+      { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "Repo History" },
+      { "<leader>gq", "<cmd>DiffviewClose<cr>", desc = "Close Diffview" },
+      {
+        "<leader>gd",
+        function()
+          vim.ui.input({ prompt = "Diffview target (leave empty for working tree): " }, function(input)
+            if input == nil then
+              return -- Do nothing if you press <Esc>
+            elseif input == "" then
+              vim.cmd("DiffviewOpen")
+            else
+              vim.cmd("DiffviewOpen " .. input)
+            end
+          end)
+        end,
+        desc = "Open Diffview (Prompt for target)",
+      },
+    },
+    opts = {},
+  },
 }
